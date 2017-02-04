@@ -11,11 +11,10 @@ class App extends Component {
     user: undefined
   };
 
-  lookupUserByID = async(userID) => {
+  fetchDataByUserID = async(userID) => {
     try {
       //douban: add your allow origin header in response!
       const user = await (await fetchJsonp(`https://api.douban.com/v2/user/${userID}`)).json();
-      console.log(user)
       this.setState({user});
     } catch (error) {
       console.log(error);
@@ -27,7 +26,7 @@ class App extends Component {
       <div className="App">
         <h2>Welcome to Douban Analytics</h2>
         <UserLookup
-          lookupUserByID={this.lookupUserByID}
+          fetchDataByUserID={this.fetchDataByUserID}
           user={this.state.user}
         />
         <Books />
