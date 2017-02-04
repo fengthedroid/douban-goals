@@ -1,21 +1,24 @@
 import React, {Component} from 'react';
-import fetchJsonp from 'fetch-jsonp';
 import './App.css';
 
+import DoubanApiService from './services/DoubanApi';
 import UserLookup from './components/UserLookup';
 import Books from './components/Books';
+
+const doubanApiService = DoubanApiService();
 
 class App extends Component {
 
   state = {
-    user: undefined
+    user: {name: 'Loading'},
+    bookStat: undefined
   };
 
   fetchDataByUserID = async(userID) => {
     try {
-      //douban: add your allow origin header in response!
-      const user = await (await fetchJsonp(`https://api.douban.com/v2/user/${userID}`)).json();
-      this.setState({user});
+      const user = await doubanApiService.getUserDetailsByUserID(userID);
+      const bookStat = await doubanApiService.getUserBooksByUserID(userID);
+      this.setState({user, bookStat});
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +32,9 @@ class App extends Component {
           fetchDataByUserID={this.fetchDataByUserID}
           user={this.state.user}
         />
-        <Books />
+        <Books
+          stat={this.state.bookStat}
+        />
       </div>
     );
   }

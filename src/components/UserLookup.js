@@ -6,8 +6,8 @@ class UserLookup extends Component {
   handleInputChange = (event) => this.setState({inputValue: event.target.value});
   lookupUser = (url = '') => {
     //TODO: change back from test data
-    // const match = url.match(/\/people\/([^\/]*)\/?$/);
-    const match = [0, 42862516];
+    const match = url.match(/\/people\/([^\/]*)\/?$/);
+    // const match = [0, 42862516];
     if (match && match[1]) {
       this.props.fetchDataByUserID(match[1]);
     }
