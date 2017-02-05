@@ -5,11 +5,11 @@ import moment from 'moment';
 
 export default () => {
   const self = {
-    async getUserDetailsByUserID(userID) {
+    async getUserDetails(userID) {
       return (await fetchJsonp(`https://api.douban.com/v2/user/${userID}`)).json();
     },
 
-    async getUserBooksByUserID(userID) {
+    async getBooks(userID) {
       const lastBook = await (await fetchJsonp(`https://api.douban.com/v2/book/user/${userID}/collections?status=read`)).json();
       const total = lastBook.total;
       const lastBookDate = R.pipe(R.head, R.prop('updated'), moment)(lastBook.collections);
@@ -25,6 +25,11 @@ export default () => {
         bookCountFromLast30Days,
         lastBookDate
       };
+    },
+
+    async getFollowingData(userID) {
+      const following = await (await fetchJsonp(`https://api.douban.com/shuo/v2/user/${userID}/following`)).json();
+      console.log(following);
     }
   };
 

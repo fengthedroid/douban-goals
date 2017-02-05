@@ -16,8 +16,11 @@ class App extends Component {
 
   fetchDataByUserID = async(userID) => {
     try {
-      const user = await doubanApiService.getUserDetailsByUserID(userID);
-      const bookStat = await doubanApiService.getUserBooksByUserID(userID);
+      const [user, bookStat] = await Promise.all([
+        doubanApiService.getUserDetails(userID),
+        doubanApiService.getBooks(userID)
+        // doubanApiService.getFollowingData(userID)
+      ]);
       this.setState({user, bookStat});
     } catch (error) {
       console.log(error);

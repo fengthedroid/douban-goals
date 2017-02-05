@@ -8,7 +8,7 @@ function Books(props) {
       <div>Total: {R.path(['stat', 'total'])(props)}</div>
       <div>Average days per book: {R.path(['stat', 'averageDays'])(props)}</div>
       <div>Last 30 days read: {R.path(['stat', 'bookCountFromLast30Days'])(props)}</div>
-      <div>Last book added at: {String(R.path(['stat', 'lastBookDate'])(props))}</div>
+      <div>Last book marked as read at: {String(R.path(['stat', 'lastBookDate'])(props))}</div>
     </div>
   } else {
     return <div>
