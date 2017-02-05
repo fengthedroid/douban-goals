@@ -28,7 +28,7 @@ export default () => {
     },
 
     async getFollowingData(userID) {
-      const following = await (await fetchJsonp(`https://api.douban.com/shuo/v2/user/${userID}/following`)).json();
+      const following = await (await fetchJsonp(`https://api.douban.com/shuo/v2/users/${userID}/followers?count=100`)).json();
       console.log(following);
     }
   };
